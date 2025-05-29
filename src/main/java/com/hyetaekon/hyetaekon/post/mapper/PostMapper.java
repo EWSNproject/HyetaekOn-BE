@@ -16,6 +16,7 @@ public interface PostMapper {
     // ✅ 게시글 목록용 DTO 변환
     @Mapping(source = "id", target = "postId")
     @Mapping(source = "user.nickname", target = "nickName")
+    @Mapping(target = "title", expression = "java(post.getDisplayTitle())")
     @Mapping(source = "postType.koreanName", target = "postType")
     @Mapping(source = "recommendCnt", target = "recommendCnt")
     @Mapping(source = "user.id", target = "userId") // 🔥 추가
@@ -24,6 +25,7 @@ public interface PostMapper {
     // ✅ 마이페이지용 게시글 DTO
     @Mapping(source = "id", target = "postId")
     @Mapping(source = "user.nickname", target = "nickName")
+    @Mapping(target = "title", expression = "java(post.getDisplayTitle())")
     @Mapping(target = "content", expression = "java(post.getDisplayContent())")
     MyPostListResponseDto toMyPostListDto(Post post);
 
@@ -37,6 +39,7 @@ public interface PostMapper {
     @Mapping(source = "id", target = "postId")
     @Mapping(source = "user.id", target = "userId")
     @Mapping(source = "user.nickname", target = "nickName")
+    @Mapping(target = "title", expression = "java(post.getDisplayTitle())")
     @Mapping(target = "content", expression = "java(post.getDisplayContent())")
     @Mapping(source = "postType.koreanName", target = "postType")
     @Mapping(target = "recommended", constant = "false")
