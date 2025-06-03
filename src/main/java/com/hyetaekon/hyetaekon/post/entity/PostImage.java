@@ -9,6 +9,9 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Builder
+@Table(name = "post_image", indexes = {
+    @Index(name = "idx_post_image_post_id_deleted_at", columnList = "post_id, deletedAt")
+})
 @NoArgsConstructor
 @AllArgsConstructor
 public class PostImage {

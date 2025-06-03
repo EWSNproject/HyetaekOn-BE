@@ -9,7 +9,10 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "business_type")
+@Table(name = "business_type", indexes = {
+    @Index(name = "idx_business_type_public_service_id", columnList = "public_service_id"),
+    @Index(name = "idx_business_type_enum_public_service_id", columnList = "business_type_enum, public_service_id")
+})
 public class BusinessType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

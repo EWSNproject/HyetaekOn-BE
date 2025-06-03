@@ -17,7 +17,14 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "answer")
+@Table(name = "answer", indexes = {
+        @Index(name = "idx_answer_post_id_selected_createdAt", columnList = "post_id, selected DESC, createdAt DESC"), // 주요 조회 및 정렬
+        @Index(name = "idx_answer_post_id", columnList = "post_id"),
+        @Index(name = "idx_answer_user_id", columnList = "user_id"),
+        @Index(name = "idx_answer_post_id_deleted_at", columnList = "post_id, deletedAt"), // 삭제된 답변 조회
+        @Index(name = "idx_answer_post_id_suspend_at", columnList = "post_id, suspendAt")  // 정지된 답변 조회
+    }
+)
 @EntityListeners(AuditingEntityListener.class)
 public class Answer {
     @Id

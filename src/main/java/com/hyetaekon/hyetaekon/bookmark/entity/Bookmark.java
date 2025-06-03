@@ -16,6 +16,10 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "bookmark", indexes = {
+    @Index(name = "idx_bookmark_user_public_service", columnList = "user_id, public_service_id", unique = true), // 주요 조회 조건 및 중복 방지
+    @Index(name = "idx_bookmark_public_service_id", columnList = "public_service_id") // 서비스기준 북마크 목록 조회
+})
 public class Bookmark extends BaseEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -16,7 +16,13 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "comments")
+@Table(name = "comments", indexes = {
+    @Index(name = "idx_comment_post_parent_created", columnList = "post_id, parentId, createdAt"), // 주요 댓글/대댓글 조회 및 정렬
+    @Index(name = "idx_comment_post_id", columnList = "post_id"),
+    @Index(name = "idx_comment_user_id", columnList = "user_id"),
+    @Index(name = "idx_comment_post_id_deleted_at", columnList = "post_id, deletedAt"), // 삭제된 댓글 조회
+    @Index(name = "idx_comment_post_id_suspend_at", columnList = "post_id, suspendAt")  // 정지된 댓글 조회
+})
 @EntityListeners(AuditingEntityListener.class)
 public class Comment {
     @Id
