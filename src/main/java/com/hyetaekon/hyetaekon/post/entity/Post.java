@@ -21,7 +21,16 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "post")
+@Table(name = "post", indexes = {
+    // 가장 빈번한 정렬/필터 조합 고려
+    @Index(name = "idx_post_deleted_at_created_at", columnList = "deletedAt, createdAt DESC"),
+    // 타입별 조회 및 정렬
+    @Index(name = "idx_post_deleted_at_post_type_created_at", columnList = "deletedAt, postType, createdAt DESC"),
+    // 사용자별 게시글 조회 및 정렬
+    @Index(name = "idx_post_user_id_deleted_at_created_at", columnList = "user_id, deletedAt, createdAt DESC"),
+    @Index(name = "idx_post_deleted_at_title", columnList = "deletedAt, title"), // 좋아용한 게시글
+    @Index(name = "idx_post_suspend_at_created_at", columnList = "suspendAt, createdAt DESC") // 정지된 게시글
+})
 @EntityListeners(AuditingEntityListener.class)
 public class Post {
 

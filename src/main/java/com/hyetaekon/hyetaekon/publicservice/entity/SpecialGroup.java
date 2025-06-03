@@ -9,7 +9,10 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "special_group")
+@Table(name = "special_group", indexes = {
+    @Index(name = "idx_special_group_public_service_id", columnList = "public_service_id"),
+    @Index(name = "idx_special_group_enum_public_service_id", columnList = "special_group_enum, public_service_id")
+})
 public class SpecialGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

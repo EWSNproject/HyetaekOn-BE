@@ -14,6 +14,11 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "public_service", indexes = {
+    @Index(name = "idx_publicservice_bookmark_cnt", columnList = "bookmark_cnt DESC"),
+    @Index(name = "idx_publicservice_service_category", columnList = "service_category"),
+    @Index(name = "idx_publicservice_views", columnList = "views")
+})
 public class PublicService {
     @Id
     private String id;
@@ -23,7 +28,7 @@ public class PublicService {
 
     // 서비스 분야 - 카테고리 + 해시태그
     @Enumerated(EnumType.STRING)
-    @Column(name = "public_category", nullable = false)
+    @Column(name = "service_category", nullable = false)
     private ServiceCategory serviceCategory;   // 서비스 분야
 
     @Column(name = "summary_purpose", columnDefinition = "TEXT")

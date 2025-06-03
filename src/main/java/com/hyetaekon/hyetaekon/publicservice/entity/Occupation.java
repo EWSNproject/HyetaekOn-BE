@@ -9,7 +9,10 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "occupation")
+@Table(name = "occupation", indexes = {
+    @Index(name = "idx_occupation_public_service_id", columnList = "public_service_id"),
+    @Index(name = "idx_occupation_enum_public_service_id", columnList = "occupation_enum, public_service_id")
+})
 public class Occupation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

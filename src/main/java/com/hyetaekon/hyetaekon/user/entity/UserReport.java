@@ -11,6 +11,13 @@ import java.time.LocalDateTime;
 @Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "user_report",
+    indexes = {
+        @Index(name = "idx_user_report_status_created_at", columnList = "status, createdAt DESC"),
+        @Index(name = "idx_user_report_reporter_id", columnList = "reporter_id"),
+        @Index(name = "idx_user_report_reported_id", columnList = "reported_id")
+    }
+)
 public class UserReport {
 
     @Id

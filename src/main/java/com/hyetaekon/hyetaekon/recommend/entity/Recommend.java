@@ -16,6 +16,10 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "recommend", indexes = {
+    @Index(name = "idx_recommend_user_post", columnList = "user_id, post_id", unique = true), // 주요 조회 조건 및 중복 방지
+    @Index(name = "idx_recommend_post_id", columnList = "post_id") // 게시글기준 좋아요 목록 조회
+})
 public class Recommend extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

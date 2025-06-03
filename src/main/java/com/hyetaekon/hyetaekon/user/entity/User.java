@@ -17,6 +17,14 @@ import java.util.List;
 @Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "user", uniqueConstraints = {
+    @UniqueConstraint(name = "up_user_real_id_deleted_at", columnNames = {"real_id", "deleted_at"}),
+}, indexes = {
+    @Index(name = "idx_user_real_id_deleted_at", columnList = "real_id, deletedAt"),
+    @Index(name = "idx_user_nickname_deleted_at", columnList = "nickname, deletedAt"),
+    @Index(name = "idx_user_deleted_at_suspend_end_at", columnList = "deletedAt, suspendEndAt"),
+    @Index(name = "idx_user_created_at", columnList = "createdAt DESC")
+})
 public class User {
 
     @Id
